@@ -4,16 +4,16 @@ const mongoose = require("mongoose");
 const date = require("../../helper/date");
 const parkingSlotsSchema = new mongoose.Schema(
   {
-    date: { type: Date, required },
-    vehicleType: { type: String, required },
-    shift: { type: String, required },
-    startTime: { type: Date, required },
-    endTime: { type: Date, required },
+    date: { type: Date, required: true },
+    vehicleType: { type: String, required: true },
+    shift: { type: String, required: true },
+    startTime: { type: Date, required: true },
+    endTime: { type: Date, required: true },
     addedOn: { type: String, default: date.TodayDate },
     addedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
-      required,
+      required: true,
     },
   },
   {

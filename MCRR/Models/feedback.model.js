@@ -7,14 +7,14 @@ const feedbackSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
-      required,
+      required: true,
     },
     parkingSlotId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "bookParking",
-      required,
+      required: true,
     },
-    message: { type: String, required },
+    message: { type: String, required: true },
     addedOn: { type: String, default: date.TodayDate },
   },
   {

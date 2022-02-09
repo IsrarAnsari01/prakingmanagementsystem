@@ -2,13 +2,13 @@
 const mongoose = require("mongoose");
 const date = require("../../helper/date");
 const userSchema = new mongoose.Schema({
-  name: { type: String, required },
-  email: { type: String, unique },
+  name: { type: String, required: true },
+  email: { type: String, unique: true },
   password: {
     type: String,
     min: 8,
     max: 16,
-    required,
+    required: true,
   },
   role: { type: String, default: "customer" },
   addedOn: { type: String, default: date.TodayDate },
