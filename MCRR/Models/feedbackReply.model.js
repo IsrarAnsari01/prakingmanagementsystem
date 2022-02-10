@@ -9,7 +9,16 @@ const feedbackReplySchema = new mongoose.Schema(
       ref: "users",
       required: true,
     },
-    message: { type: String, required: true },
+    message: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^[A-Za-z .0-9]{3,}$/.test(v);
+        },
+        message: (props) => `${props.value} is not Valid!`,
+      },
+      required: true,
+    },
     addedOn: { type: String, default: date.TodayDate },
     feedbackId: {
       type: mongoose.Schema.Types.ObjectId,

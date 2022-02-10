@@ -15,6 +15,7 @@ app.use(
     secret: "Hello From PMS",
     resave: false,
     saveUninitialized: true,
+    cookie: { maxAge: 216000000, secure: false },
   })
 );
 

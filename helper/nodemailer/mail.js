@@ -4,7 +4,10 @@ let fs = require("fs");
 let ejs = require("ejs");
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  requireTLS: true,
   auth: {
     user: "kevin0119brien@gmail.com",
     pass: "0349A24799",
@@ -20,7 +23,7 @@ module.exports.signUpMail = (userEmail, token) => {
   const mainOption = {
     from: "kevin0119brien@gmail.com",
     to: `${userEmail}`,
-    subject: `Click this link to change the password`,
+    subject: `Welcome to the parking management System`,
     html: `${html}`,
   };
   return new Promise((resolve, reject) => {

@@ -14,7 +14,16 @@ const feedbackSchema = new mongoose.Schema(
       ref: "bookParking",
       required: true,
     },
-    message: { type: String, required: true },
+    message: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^[A-Za-z .0-9]{3,}$/.test(v);
+        },
+        message: (props) => `${props.value} is not Valid`,
+      },
+      required: true,
+    },
     addedOn: { type: String, default: date.TodayDate },
   },
   {
