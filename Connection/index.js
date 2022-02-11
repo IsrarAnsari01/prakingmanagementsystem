@@ -1,11 +1,13 @@
 /* eslint-disable */
 
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
 module.exports.connectWithDB = () => {
-  mongoose.connect(
-    "mongodb+srv://israr0119:0349A24799@cluster0.haoob.mongodb.net/parkingmanagementsystem?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  );
+  mongoose.connect(process.env.DATABASE_CONNECTION_CREDENTIALS, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   const db = mongoose.connection;
   db.once("error", (err) => {
     console.log("Error in connecting to DB");

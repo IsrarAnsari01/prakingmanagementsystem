@@ -2,7 +2,7 @@
 
 const e = require("express");
 const jwt = require("jsonwebtoken");
-const userRepo = require("../../MCRR/Repositry/user.repo");
+const userRepo = require("../MCRR/Reposities/user.repo");
 module.exports.validateUser = (roles) => {
   return (auth = async (req, response, next) => {
     // For PostMan

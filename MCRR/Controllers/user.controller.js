@@ -1,8 +1,8 @@
 /* eslint-disable */
-const userRepo = require("../Repositry/user.repo");
+const userRepo = require("../Reposities/user.repo");
 const passwordEncryption = require("../../helper/encryptPassword");
 const jwt = require("jsonwebtoken");
-const mail = require("../../helper/nodemailer/mail");
+const mail = require("../../nodemailer/mail");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -34,8 +34,6 @@ module.exports.loginUser = async (req, res) => {
         const token = jwt.sign({ id: succ._id }, process.env.TOKEN_SECRET_KEY, {
           expiresIn: "360m",
         });
-        req.session.userId = succ._id;
-        req.session.isLoggedIn = true;
         req.session.save(function (err) {
           if (err) console.log("Session not saved!", err);
           res.status(200).send({ token });
@@ -50,11 +48,6 @@ module.exports.loginUser = async (req, res) => {
 };
 
 module.exports.updateUser = async (req, res) => {
-  console.log(req.session);
-  if (!req.session.isLoggedIn) {
-    res.status(403).send({ error: "Login First" });
-    return;
-  }
   try {
     await new userRepo()
       .updateUser(req.params.id, req.body.user)

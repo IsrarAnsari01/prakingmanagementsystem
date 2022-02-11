@@ -1,24 +1,14 @@
 /* eslint-disable */
 const express = require("express");
 const bodyParser = require("body-parser");
-const session = require("express-session");
 const cors = require("cors");
 const port = 3355;
 const app = express();
-const connection = require("./Connection/index");
-const index = require("./MCRR/Routing/index");
+const connection = require("./Connection");
+const index = require("./MCRR/Routes");
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "40mb" }));
-app.use(
-  session({
-    secret: "Hello From PMS",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 216000000, secure: false },
-  })
-);
-
 app.set("views", "./helper/nodemailer/templates");
 app.set("view engine", "ejs");
 

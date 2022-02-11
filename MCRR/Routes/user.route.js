@@ -3,8 +3,8 @@
 const express = require("express");
 // const { grantAccess } = require("../jwt/verification");
 const router = express.Router();
-const controller = require("../Controller/user.controller");
-const validation = require("../../helper/jwt/validateUser");
+const controller = require("../Controllers/user.controller");
+const validation = require("../../jwt/validateUser");
 
 router.post("/add", controller.saveUser);
 router.post("/login", controller.loginUser);
