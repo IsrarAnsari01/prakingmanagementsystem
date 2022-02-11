@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-const e = require("express");
 const jwt = require("jsonwebtoken");
 const userRepo = require("../MCRR/Reposities/user.repo");
 module.exports.validateUser = (roles) => {
@@ -37,4 +36,12 @@ module.exports.validateUser = (roles) => {
       }
     }
   });
+};
+
+module.exports.validateRefreshToken = (token) => {
+  const verified = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET_KEY);
+  if (verified.id) {
+    return verified.id;
+  }
+  return false;
 };

@@ -1,10 +1,9 @@
 /* eslint-disable */
 const userRepo = require("../Reposities/user.repo");
 const passwordEncryption = require("../../helper/encryptPassword");
-const jwt = require("jsonwebtoken");
 const mail = require("../../nodemailer/mail");
-const dotenv = require("dotenv");
-dotenv.config();
+const jwtToken = require("../../jwt/createTokens");
+const validateToken = require("../../jwt/validateUser");
 
 module.exports.saveUser = async (req, res) => {
   try {
@@ -31,14 +30,10 @@ module.exports.loginUser = async (req, res) => {
           succ.password
         )
       ) {
-        const token = jwt.sign({ id: succ._id }, process.env.TOKEN_SECRET_KEY, {
-          expiresIn: "360m",
-        });
-        req.session.save(function (err) {
-          if (err) console.log("Session not saved!", err);
-          res.status(200).send({ token });
-        });
-        console.log("Express session after login", req.session);
+        req.session.isUserLoggedIn = true;
+        const token = new jwtToken().accessToken(succ._id);
+        const refreshTokens = new jwtToken().refreshToken(succ._id);
+        res.status(200).send({ token: token, refreshTokens: refreshTokens });
       }
     });
   } catch (error) {
@@ -59,4 +54,18 @@ module.exports.updateUser = async (req, res) => {
   }
 
   return;
+};
+
+module.exports.refreshToken = async (req, res) => {
+  if (!req.session.isUserLoggedIn) {
+    res.status(401).send({ error: "You are not logged in" });
+    return;
+  }
+  if (!req.body.reFreshToken) res.status(401).send({ error: "Invalid  Token" });
+  const userId = validateToken.validateRefreshToken(req.body.reFreshToken);
+  if (!userId) res.status(401).send({ error: "Invalid Refresh Token" });
+  res.status(200).send({
+    newAccessToken: new jwtToken().accessToken(userId),
+    newRefreshToken: new jwtToken().refreshToken(userId),
+  });
 };
