@@ -62,7 +62,7 @@ module.exports.refreshToken = async (req, res) => {
     return;
   }
   if (!req.body.reFreshToken) res.status(401).send({ error: "Invalid  Token" });
-  const userId = validateToken.validateRefreshToken(req.body.reFreshToken);
+  const userId = validateToken.validateRefreshToken(req.body.reFreshToken, res);
   if (!userId) res.status(401).send({ error: "Invalid Refresh Token" });
   res.status(200).send({
     newAccessToken: new jwtToken().accessToken(userId),

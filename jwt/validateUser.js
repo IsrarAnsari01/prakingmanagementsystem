@@ -38,10 +38,11 @@ module.exports.validateUser = (roles) => {
   });
 };
 
-module.exports.validateRefreshToken = (token) => {
-  const verified = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET_KEY);
-  if (verified.id) {
+module.exports.validateRefreshToken = (token, res) => {
+  try {
+    const verified = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET_KEY);
     return verified.id;
+  } catch (error) {
+    res.status(400).send({ error: "Invalid Refresh TOken" });
   }
-  return false;
 };
