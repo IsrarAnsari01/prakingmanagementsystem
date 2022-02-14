@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 const express = require("express");
-// const { grantAccess } = require("../jwt/verification");
 const router = express.Router();
 const controller = require("../Controllers/user.controller");
 const validation = require("../../jwt/validateUser");

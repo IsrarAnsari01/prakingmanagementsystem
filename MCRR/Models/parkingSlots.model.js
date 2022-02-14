@@ -29,6 +29,6 @@ const parkingSlotsSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const parkingSlots = new mongoose.model("parkingSlots", parkingSlotsSchema);
+const parkingSlot = new mongoose.model("parkingSlots", parkingSlotsSchema);
 
-module.exports.parkingSlots = parkingSlots;
+module.exports.parkingSlot = parkingSlot;
