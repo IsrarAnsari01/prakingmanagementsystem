@@ -21,4 +21,5 @@ module.exports = class userRepo {
   async singleUser(condition) {
     return await userModel.user.findOne(condition);
   }
+
 };

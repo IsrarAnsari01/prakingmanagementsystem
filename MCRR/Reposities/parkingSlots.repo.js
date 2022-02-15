@@ -1,6 +1,6 @@
 /* eslint-disable */
 const parkingSlotModel = require("../Models/parkingSlots.model");
-module.exports = class bookParking {
+module.exports = class parkingSlot {
   async addParkingSlot(slotDetails) {
     const parkingSlot = new parkingSlotModel.parkingSlot(slotDetails);
     return await parkingSlot.save();
@@ -15,5 +15,17 @@ module.exports = class bookParking {
       { _id: id },
       slotDetails
     );
+  }
+
+  async sameCityParking(cityName) {
+    return await parkingSlotModel.parkingSlot.find({ city: cityName });
+  }
+
+  async nearestParking(zipCode, cityName) {
+    return await parkingSlotModel.parkingSlot
+      .find({
+        $and: [{ city: cityName }, { zipcode: zipCode }],
+      })
+      .exec();
   }
 };

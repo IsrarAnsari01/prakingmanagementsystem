@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: function (v) {
-        return /^[A-Za-z .0-9]{3,}$/.test(v);
+        return /^[A-Za-z .0-9]{,}$/.test(v);
       },
       message: (props) => `${props.value} is not a valid Name!`,
     },
@@ -20,6 +20,45 @@ const userSchema = new mongoose.Schema({
     maxlength: 100,
     required: true,
   },
+  country: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /^[A-Za-z ]{2,}$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid Country Name !`,
+    },
+    required: true,
+  },
+  city: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /^[A-Za-z ]{2,}$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid Country Name !`,
+    },
+    required: true,
+  },
+  zipcode: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /^[0-9 ]$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid Zip Code!`,
+    },
+  },
+  street: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /^[A-Za-z0-9!@#$%&^*. ]$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid Street Code!`,
+    },
+  },
+
   role: { type: String, default: "customer" },
   addedOn: { type: String, default: date.TodayDate },
 });

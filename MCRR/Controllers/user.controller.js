@@ -1,5 +1,6 @@
 /* eslint-disable */
 const userRepo = require("../Reposities/user.repo");
+const parkingSlotRepo = require("../Reposities/parkingSlots.repo");
 const passwordEncryption = require("../../helper/encryptPassword");
 const mail = require("../../nodemailer/mail");
 const jwtToken = require("../../jwt/createTokens");
@@ -68,4 +69,16 @@ module.exports.refreshToken = async (req, res) => {
     newAccessToken: new jwtToken().accessToken(userId),
     newRefreshToken: new jwtToken().refreshToken(userId),
   });
+};
+
+module.exports.sameCityParking = async (req, res) => {
+  try {
+    await new parkingSlotRepo()
+      .sameCityParking(req.body.cityName)
+      .then((succ) => {
+        res.status(200).send({ parkingSlots: succ });
+      });
+  } catch (error) {
+    res.status(400).send({ error });
+  }
 };

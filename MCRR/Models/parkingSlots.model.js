@@ -9,13 +9,51 @@ const parkingSlotsSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: function (v) {
-          return /^[A-Za-z .0-9]{3,}$/.test(v);
+          return /^[A-Za-z .0-9]{3, }$/.test(v);
         },
         message: (props) => `${props.value} is not a valid Vehical Type!`,
       },
       required: true,
     },
-    shift: { type: String, required: true },
+    shift: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^[A-Za-z0-9 ]{3, }$/.test(v);
+        },
+        message: (props) => `${props.value} is not a Shift!`,
+      },
+      required: true,
+    },
+    country: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^[A-Za-z ]{2,}$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid Country Name !`,
+      },
+      required: true,
+    },
+    city: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^[A-Za-z ]{2,}$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid Country Name !`,
+      },
+      required: true,
+    },
+    zipcode: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^[0-9 ]$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid Zip Code!`,
+      },
+    },
     startTime: { type: Date, required: true },
     endTime: { type: Date, required: true },
     addedOn: { type: String, default: date.TodayDate },
