@@ -82,3 +82,15 @@ module.exports.sameCityParking = async (req, res) => {
     res.status(400).send({ error });
   }
 };
+
+module.exports.nearestParking = async (req, res) => {
+  try {
+    await new parkingSlotRepo()
+      .nearestParking(req.body.data.zipcode, req.body.data.cityName)
+      .then((succ) => {
+        res.send(200).send({ slots: succ });
+      });
+  } catch (error) {
+    res.send(400).send({ error });
+  }
+};
