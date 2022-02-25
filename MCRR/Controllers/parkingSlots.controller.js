@@ -3,6 +3,10 @@ const parkingSlot = require("../Reposities/parkingSlots.repo");
 
 module.exports.addParkingBlock = async (req, res) => {
   try {
+    req.body.parkingSlot.cityName = stringFunc.capitalizeFirstLetter(
+      req.body.parkingSlot.cityName
+    );
+    // req.body.parkingSlot.date = new Date()
     await new parkingSlot()
       .addParkingSlot(req.body.parkingSlot)
       .then((succ) => {

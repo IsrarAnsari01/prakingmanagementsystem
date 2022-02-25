@@ -20,8 +20,8 @@ router.get(
   validation.validateUser(["customer", "admin"]),
   controller.sameCityParking
 );
-router.get(
-  "/nearestparking/:zipcode/:cityname",
+router.post(
+  "/nearestparking",
   validation.validateUser(["customer", "admin"]),
   controller.nearestParking
 );

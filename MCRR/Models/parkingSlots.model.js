@@ -4,12 +4,16 @@ const mongoose = require("mongoose");
 const date = require("../../helper/date");
 const parkingSlotsSchema = new mongoose.Schema(
   {
-    date: { type: Date, required: true },
+    date: {
+      type: Date,
+      required: true,
+      min: Date.now(),
+    },
     vehicleType: {
       type: String,
       validate: {
         validator: function (v) {
-          return /^[A-Za-z .0-9]{3, }$/.test(v);
+          return /^[A-Za-z .0-9]{3,}$/.test(v);
         },
         message: (props) => `${props.value} is not a valid Vehical Type!`,
       },
@@ -19,7 +23,7 @@ const parkingSlotsSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: function (v) {
-          return /^[A-Za-z0-9 ]{3, }$/.test(v);
+          return /^[A-Za-z0-9 ]{3,}$/.test(v);
         },
         message: (props) => `${props.value} is not a Shift!`,
       },
@@ -46,13 +50,8 @@ const parkingSlotsSchema = new mongoose.Schema(
       required: true,
     },
     zipcode: {
-      type: String,
-      validate: {
-        validator: function (v) {
-          return /^[0-9 ]$/.test(v);
-        },
-        message: (props) => `${props.value} is not a valid Zip Code!`,
-      },
+      type: Number,
+      required: true,
     },
     startTime: { type: Date, required: true },
     endTime: { type: Date, required: true },

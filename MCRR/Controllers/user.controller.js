@@ -5,6 +5,7 @@ const passwordEncryption = require("../../helper/encryptPassword");
 const mail = require("../../nodemailer/mail");
 const jwtToken = require("../../jwt/createTokens");
 const validateToken = require("../../jwt/validateUser");
+const stringFunc = require("../../helper/stringFunc");
 
 module.exports.saveUser = async (req, res) => {
   try {
@@ -73,8 +74,9 @@ module.exports.refreshToken = async (req, res) => {
 
 module.exports.sameCityParking = async (req, res) => {
   try {
+    req.params.cityname = stringFunc.capitalizeFirstLetter(req.params.cityname);
     await new parkingSlotRepo()
-      .sameCityParking(req.body.cityName)
+      .sameCityParking(req.params.cityname)
       .then((succ) => {
         res.status(200).send({ parkingSlots: succ });
       });
@@ -86,11 +88,16 @@ module.exports.sameCityParking = async (req, res) => {
 module.exports.nearestParking = async (req, res) => {
   try {
     await new parkingSlotRepo()
-      .nearestParking(req.body.data.zipcode, req.body.data.cityName)
+      .nearestParking(
+        req.body.data.zipcode,
+        (req.body.data.cityName = stringFunc.capitalizeFirstLetter(
+          req.body.data.cityName
+        ))
+      )
       .then((succ) => {
-        res.send(200).send({ slots: succ });
+        res.status(200).send({ slots: succ });
       });
   } catch (error) {
-    res.send(400).send({ error });
+    res.status(400).send({ error });
   }
 };

@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: function (v) {
-        return /^[A-Za-z .0-9]{,}$/.test(v);
+        return /^[A-Za-z .0-9]{3,}$/.test(v);
       },
       message: (props) => `${props.value} is not a valid Name!`,
     },
@@ -41,19 +41,15 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   zipcode: {
-    type: String,
-    validate: {
-      validator: function (v) {
-        return /^[0-9 ]$/.test(v);
-      },
-      message: (props) => `${props.value} is not a valid Zip Code!`,
-    },
+    type: Number,
+    minlength: 4,
+    required: true,
   },
   street: {
     type: String,
     validate: {
       validator: function (v) {
-        return /^[A-Za-z0-9!@#$%&^*. ]$/.test(v);
+        return /^[A-Za-z0-9!@#$%&^*. ]{3,}$/.test(v);
       },
       message: (props) => `${props.value} is not a valid Street Code!`,
     },

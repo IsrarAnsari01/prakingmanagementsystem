@@ -22,10 +22,9 @@ module.exports = class parkingSlot {
   }
 
   async nearestParking(zipCode, cityName) {
-    return await parkingSlotModel.parkingSlot
-      .find({
-        $and: [{ city: cityName }, { zipcode: zipCode }],
-      })
-      .exec();
+    return await parkingSlotModel.parkingSlot.find({
+      city: cityName,
+      zipcode: zipCode,
+    });
   }
 };

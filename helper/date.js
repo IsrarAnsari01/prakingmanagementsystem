@@ -16,4 +16,5 @@ const months = [
 const date = new Date();
 const TodayDate =
   date.getDate() + " - " + months[date.getMonth()] + " - " + date.getFullYear();
+console.log(date.getDate())
 module.exports.TodayDate = TodayDate;
