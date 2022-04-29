@@ -4,14 +4,7 @@ let fs = require("fs");
 let ejs = require("ejs");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  requireTLS: true,
-  auth: {
-    user: "kevin0119brien@gmail.com",
-    pass: "0349A24799",
-  },
+
 });
 
 module.exports.signUpMail = (userEmail, token) => {
